@@ -14,6 +14,8 @@ class Column extends React.Component {
 
   static propTypes = {
     title: PropTypes.string,
+    icon: PropTypes.string,
+    cards: PropTypes.array,
   }
 
   addCard(title) {
@@ -24,8 +26,8 @@ class Column extends React.Component {
           {
             key: state.cards.length ? state.cards[state.cards.length - 1].key + 1 : 0,
             title,
-          }
-        ]
+          },
+        ],
       }
     ));
   }
@@ -46,7 +48,7 @@ class Column extends React.Component {
           <Creator text={settings.cardCreatorText} action={title => this.addCard(title)} />
         </div>
       </section>
-    )
+    );
   }
 }
 
