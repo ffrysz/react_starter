@@ -89,8 +89,20 @@ const lists = [
   {
     id: 'list-1',
     title: 'Things to do <sup>soon!</sup>',
-    description: 'Interesting things I want to check out!',
+    description: 'Interesting things I want to check out',
     image: 'http://uploads.kodilla.com/bootcamp/fer/11.react/space.png',
+  },
+  {
+    id: 'list-2',
+    title: 'Things not to do',
+    description: 'Interesting things I should not check out',
+    image: 'https://images.pexels.com/photos/1671324/pexels-photo-1671324.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+  },
+  {
+    id: 'list-3',
+    title: 'Things to consider doing',
+    description: 'Interesting things I might want to do',
+    image: 'https://images.pexels.com/photos/957024/forest-trees-perspective-bright-957024.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
   },
 ];
 
