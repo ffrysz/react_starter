@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { settings } from '../../data/dataStore.js';
 import Container from '../Container/Container';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { createAction_moveCard } from '../../redux/cardsRedux';
+
 
 class List extends React.Component {
   // state = {
@@ -43,7 +43,7 @@ class List extends React.Component {
   // }
 
   render() {
-    const { title, image, description, columns, addColumn } = this.props;
+    const { title, image, description, columns, addColumn, moveCard } = this.props;
     const moveCardHandler = result => {
       console.log(result);
       if (
@@ -55,7 +55,7 @@ class List extends React.Component {
           result.destination.droppableId != result.source.droppableId
         )
       ) {
-        createAction_moveCard({
+        moveCard({
           id: result.draggableId,
           dest: {
             index: result.destination.index,
