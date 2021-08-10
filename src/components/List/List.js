@@ -20,6 +20,7 @@ class List extends React.Component {
     description: PropTypes.node,
     columns: PropTypes.array,
     addColumn: PropTypes.func,
+    moveCard: PropTypes.func,
   }
 
   static defaultProps = {

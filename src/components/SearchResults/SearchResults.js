@@ -14,10 +14,11 @@ class SearchResults extends React.Component {
 
   static propTypes = {
     cards: PropTypes.array,
+    id: PropTypes.string,
   }
 
   render() {
-    const { cards } = this.props;
+    const { cards, id } = this.props;
     console.log(cards);
     return (
       <section className={styles.component}>
