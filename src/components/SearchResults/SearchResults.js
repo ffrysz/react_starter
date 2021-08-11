@@ -1,10 +1,9 @@
 import React from 'react';
 import styles from './SearchResults.scss';
 import PropTypes from 'prop-types';
-import Card from '../Card/Card.js';
+import Card from '../Card/NonDraggableCard.js';
 import { settings } from '../../data/dataStore.js';
 import Icon from '../Icon/Icon.js';
-// import { Droppable } from 'react-beautiful-dnd';
 
 class SearchResults extends React.Component {
 
@@ -32,21 +31,6 @@ class SearchResults extends React.Component {
           {cards.map(cardData => (
             <Card key={cardData.id} {...cardData} />
           ))}
-          {/* <Droppable droppableId={id}>
-            {provided => (
-              <div
-                className={styles.cards}
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {cards.map(cardData => (
-                  <Card key={cardData.id} {...cardData} />
-                ))}
-
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable> */}
         </div>
       </section>
     );
