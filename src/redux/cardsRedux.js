@@ -4,7 +4,7 @@ import shortid from 'shortid';
 // export const getCardsForColumn = ({ cards, searchString }, columnId) => cards.filter(card => card.columnId == columnId &&
 //   new RegExp(searchString, 'i').test(card.title)
 // );
-export const getCardsForColumn = ({ cards }, columnId) => cards.filter(card => card.columnId == columnId);
+export const getCardsForColumn = ({ cards }, columnId) => cards.filter(card => card.columnId == columnId).sort((a, b) => a.index - b.index);
 export const getCardsForSearchResults = ({ cards }, searchString) => cards.filter(card => new RegExp(searchString, 'i').test(card.title));
 
 // export const getCardsForColumn = ({ cards }, columnId, searchString) => cards.filter(card => (card.columnId == columnId));
@@ -30,24 +30,41 @@ export default function reducer(statePart = [], action = {}) {
       // console.log(statePart);
       const { id, dest, src } = action.payload;
       const targetCard = statePart.filter(card => card.id == id)[0];
-      const targetColumnCards = statePart.filter(card => card.columnId == dest.columnId).sort((a, b) => a.index - b.index);
+      let targetColumnCards = statePart.filter(card => card.columnId == dest.columnId).sort((a, b) => a.index - b.index);
       // console.log(targetColumnCards.map(card => `${card.index}, title: ${card.title}`));
       // console.log(targetColumnCards);
       if (dest.columnId == src.columnId) {
-        targetColumnCards.splice(src.index, 1);
-        targetColumnCards.splice(dest.index, 0, targetCard);
+        // targetColumnCards.splice(src.index, 1);
+        // targetColumnCards.splice(dest.index, 0, targetCard);
+
+        // return statePart.map(card => {
+        //   const targetColumnIndex = targetColumnCards.indexOf(card);
+        //   // console.log(targetColumnIndex);
+
+        //   if (targetColumnIndex > -1 && card.index != targetColumnIndex) {
+        //     return { ...card, index: targetColumnIndex };
+        //   } else {
+        //     return card;
+        //   }
+        // console.log(targetColumnCards.map(card => `${card.index}, title: ${card.title}`));
+        targetColumnCards = targetColumnCards.map((card, i) => {
+          // console.log(i);
+          card.index = i;
+          return card;
+        });
+
+        console.log('Target:', targetColumnCards);
 
         return statePart.map(card => {
-          const targetColumnIndex = targetColumnCards.indexOf(card);
-          // console.log(targetColumnIndex);
+          const cardInColumn = targetColumnCards.find(_card => card.id == _card.id);
 
-          if (targetColumnIndex > -1 && card.index != targetColumnIndex) {
-            return { ...card, index: targetColumnIndex };
+          if (cardInColumn) {
+            return cardInColumn;
           } else {
             return card;
           }
-          // console.log(targetColumnCards.map(card => `${card.index}, title: ${card.title}`));
         });
+
       } else {
         let sourceColumnCards = statePart.filter(card => card.columnId == src.columnId).sort((a, b) => a.index - b.index);
 
@@ -56,10 +73,10 @@ export default function reducer(statePart = [], action = {}) {
         // add card to targetColumn
         targetColumnCards.splice(dest.index, 0, targetCard);
 
-        console.log('sourceColumnCards:');
-        console.log(sourceColumnCards.map(card => `${card.index}, title: ${card.title}`));
-        console.log('targetColumnCards:');
-        console.log(targetColumnCards.map(card => `${card.index}, title: ${card.title}`));
+        // console.log('sourceColumnCards:');
+        // console.log(sourceColumnCards.map(card => `${card.index}, title: ${card.title}`));
+        // console.log('targetColumnCards:');
+        // console.log(targetColumnCards.map(card => `${card.index}, title: ${card.title}`));
 
         return statePart.map(card => {
           const targetColumnIndex = targetColumnCards.indexOf(card);
